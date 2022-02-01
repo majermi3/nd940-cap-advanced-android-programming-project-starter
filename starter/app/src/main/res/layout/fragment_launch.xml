@@ -20,6 +20,7 @@
 
         <Button
             android:id="@+id/upcoming_button"
+            style="@style/ActionButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -32,6 +33,7 @@
 
         <Button
             android:id="@+id/representative_button"
+            style="@style/ActionButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

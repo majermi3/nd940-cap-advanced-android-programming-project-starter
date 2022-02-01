@@ -6,22 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.android.politicalpreparedness.MyApp
-import com.example.android.politicalpreparedness.R
-import com.example.android.politicalpreparedness.ServiceLocator
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
-import com.example.android.politicalpreparedness.databinding.FragmentLaunchBinding
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
 import com.example.android.politicalpreparedness.election.adapter.ElectionListener
 import com.example.android.politicalpreparedness.network.models.Election
 
 class ElectionsFragment: Fragment() {
 
-    //TODO: Declare ViewModel
     private val _viewModel by viewModels<ElectionsViewModel>() {
         ElectionsViewModelFactory(
                 requireContext().applicationContext as MyApp,
@@ -33,29 +29,27 @@ class ElectionsFragment: Fragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        //TODO: Add ViewModel values and create ViewModel
-
-        //TODO: Add binding values
-
-        //TODO: Initiate recycler adapters
-
-        //TODO: Populate recycler adapters
-
         val binding = FragmentElectionBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.electionsViewModel = _viewModel
 
-        val adapter = ElectionListAdapter(ElectionListener { election ->
+        setUpList(_viewModel.upcomingElections, binding.upcomingElectionsList, ElectionListener { election ->
             navigateToVoterInfo(election)
         })
-        binding.upcomingElectionsList.adapter = adapter
-        binding.upcomingElectionsList.layoutManager = LinearLayoutManager(requireContext())
+        setUpList(_viewModel.savedElections, binding.savedElectionsList, ElectionListener { election ->
 
-        _viewModel.upcomingElections.observe(viewLifecycleOwner, Observer { elections ->
-            adapter.submitList(elections)
         })
 
         return binding.root
+    }
+
+    private fun setUpList(elections: LiveData<List<Election>>, recyclerView: RecyclerView, clickListener: ElectionListener) {
+        val adapter = ElectionListAdapter(clickListener)
+        recyclerView.adapter = adapter
+
+        elections.observe(viewLifecycleOwner, Observer { newElections ->
+            adapter.submitList(newElections)
+        })
     }
 
     private fun navigateToVoterInfo(election: Election) {

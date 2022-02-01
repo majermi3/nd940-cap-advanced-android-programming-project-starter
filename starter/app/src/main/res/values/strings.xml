@@ -5,4 +5,16 @@
     <string name="saved_elections">Saved Elections</string>
     <string name="find_my_representatives">Find my representatives</string>
     <string name="logo_content_description">Image of a hand dropping a paper to a box</string>
+    <string name="election_name">Election name</string>
+    <string name="election_event_date_example">Tue Feb 08 00:00:00 CST 2022</string>
+    <string name="election_information">Election Information</string>
+    <string name="voting_locations">Voting locations</string>
+    <string name="ballot_information">Ballot Information</string>
+    <string name="example_state">California</string>
+    <string name="example_city">Sacramento</string>
+    <string name="example_zip">95814</string>
+    <string name="example_address_line1">1500 11th Street, 5th Floor</string>
+    <string name="follow_election">Follow Election</string>
+    <string name="unfollow_election">Unfollow Election</string>
+    <string name="correspondence_address">Correspondence Address</string>
 </resources>

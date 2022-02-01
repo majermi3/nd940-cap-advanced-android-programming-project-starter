@@ -30,6 +30,13 @@ class VoterInfoFragment : BaseLocationFragment() {
         binding.lifecycleOwner = this
         binding.voterInfoViewModel = _viewModel
 
+        binding.stateLocations.setOnClickListener {
+
+        }
+        binding.stateBallot.setOnClickListener {
+
+        }
+
         return binding.root
     }
 

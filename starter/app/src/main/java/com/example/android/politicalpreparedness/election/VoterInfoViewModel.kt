@@ -1,13 +1,39 @@
 package com.example.android.politicalpreparedness.election
 
-import androidx.lifecycle.ViewModel
-import com.example.android.politicalpreparedness.database.ElectionDao
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.android.politicalpreparedness.network.CivicsApi
+import com.example.android.politicalpreparedness.network.models.Address
+import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import timber.log.Timber
 
-class VoterInfoViewModel() : ViewModel() {
+class VoterInfoViewModel(app: Application) : AndroidViewModel(app) {
 
-    //TODO: Add live data to hold voter info
+    private val _voterInfo = MutableLiveData<VoterInfoResponse>()
+    val voterInfo: LiveData<VoterInfoResponse>
+        get() = _voterInfo
 
-    //TODO: Add var and methods to populate voter info
+    fun loadVoterInfo(electionId: Int, address: Address) {
+        CivicsApi.retrofitService.getVoterInfo(getFormattedAddress(address), electionId).enqueue(object : Callback<VoterInfoResponse> {
+            override fun onResponse(call: Call<VoterInfoResponse>, response: Response<VoterInfoResponse>) {
+                val vi = response.body()
+                _voterInfo.value = vi
+            }
+
+            override fun onFailure(call: Call<VoterInfoResponse>, t: Throwable) {
+                Timber.e(t)
+            }
+        })
+    }
+
+    private fun getFormattedAddress(address: Address): String {
+        return "${address.line1}, ${address.zip} ${address.city} ${address.state}"
+    }
 
     //TODO: Add var and methods to support loading URLs
 

@@ -80,4 +80,5 @@ dependencies {
 
     // Location
     implementation "com.google.android.gms:play-services-location:$version_play_services_location"
+    implementation "com.google.android.gms:play-services-maps:$version_play_services_location"
 }

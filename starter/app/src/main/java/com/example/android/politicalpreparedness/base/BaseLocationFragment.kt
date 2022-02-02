@@ -28,7 +28,6 @@ abstract class BaseLocationFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        checkPermissionsAndSetCurrentLocation()
     }
 
     override fun onRequestPermissionsResult(
@@ -50,7 +49,7 @@ abstract class BaseLocationFragment : Fragment() {
         }
     }
 
-    private fun checkPermissionsAndSetCurrentLocation() {
+    protected fun checkPermissionsAndSetCurrentLocation() {
         if (areLocationPermissionsGranted()) {
             checkDeviceLocationSettingsAndSetCurrentLocation()
         } else {

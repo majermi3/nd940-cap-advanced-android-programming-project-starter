@@ -4,11 +4,18 @@
     xmlns:motion="http://schemas.android.com/tools">
 
     <!-- TODO: Add data binding node -->
+    <data>
+        <variable
+            name="representativeViewModel"
+            type="com.example.android.politicalpreparedness.representative.RepresentativeViewModel" />
+    </data>
 
     <!-- TODO: Add motion scene to hide form on vertical scroll. -->
     <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/representative_container"
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        app:layoutDescription="@xml/fragment_representative_scene">
 
         <!-- TODO: Add visual styling and content -->
         <TextView
@@ -104,14 +111,12 @@
         <!-- TODO: Add Representatives RecyclerView -->
 
         <!-- TODO: Add visual styling and content -->
-        <TextView
-            android:id="@+id/list_placeholder"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/representative_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:gravity="center"
             android:textAlignment="center"
-            android:visibility="gone"
-            motion:visibilityMode="ignore"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/representative_title"
             app:layout_constraintBottom_toBottomOf="parent" />
 

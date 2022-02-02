@@ -34,6 +34,8 @@ class VoterInfoFragment : BaseLocationFragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
+        checkPermissionsAndSetCurrentLocation()
+
         binding = FragmentVoterInfoBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.voterInfoViewModel = _viewModel

@@ -12,7 +12,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 
-//TODO: Construct ViewModel and provide election datasource
 class ElectionsViewModel(
         app: Application,
         private val repository: ElectionsRepository): AndroidViewModel(app) {
@@ -46,9 +45,4 @@ class ElectionsViewModel(
             _savedElections.value = repository.getAll()
         }
     }
-
-    //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
-
-    //TODO: Create functions to navigate to saved or upcoming election voter info
-
 }

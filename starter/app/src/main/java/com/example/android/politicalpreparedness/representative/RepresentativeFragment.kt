@@ -16,6 +16,7 @@ import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.base.BaseLocationFragment
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
+import com.example.android.politicalpreparedness.representative.adapter.setNewValue
 import com.google.android.material.snackbar.Snackbar
 
 class RepresentativeFragment : BaseLocationFragment() {
@@ -43,7 +44,7 @@ class RepresentativeFragment : BaseLocationFragment() {
         })
 
         binding.buttonSearch.setOnClickListener {
-            _viewModel.findRepresentatives()
+            _viewModel.findRepresentatives(getFormattedAddress())
             hideKeyboard()
         }
         binding.buttonLocation.setOnClickListener {
@@ -67,7 +68,13 @@ class RepresentativeFragment : BaseLocationFragment() {
         binding.addressLine1.setText(address.line1)
         binding.zip.setText(address.zip)
         binding.city.setText(address.city)
-        binding.state.setSelection(resources.getStringArray(R.array.states).indexOf(address.state))
+        binding.state.setNewValue(address.state)
+    }
+
+    private fun getFormattedAddress(): String {
+        return "${binding.addressLine1.text} ${binding.addressLine2.text}, " +
+                "${binding.zip.text} ${binding.city.text}, " +
+                "${binding.state.selectedItem}"
     }
 
     override fun showLocationPermissionError() {

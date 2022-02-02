@@ -19,4 +19,9 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="SocialIcon">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
 </resources>

@@ -22,6 +22,7 @@ import java.util.*
 abstract class BaseLocationFragment : Fragment() {
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    protected lateinit var currentLocation: Location
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,7 +112,8 @@ abstract class BaseLocationFragment : Fragment() {
         fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 task.result?.let {
-                    setCurrentLocation(it)
+                    currentLocation = it
+                    onLocationSet()
                 }
             }
         }
@@ -131,7 +133,7 @@ abstract class BaseLocationFragment : Fragment() {
         )
     }
 
-    protected abstract fun setCurrentLocation(currentLocation: Location)
+    protected abstract fun onLocationSet()
     protected abstract fun showLocationPermissionError()
 
     companion object {

@@ -27,7 +27,6 @@ class ElectionsViewModel(
 
     init {
         loadUpcomingElections()
-        loadSavedElections()
     }
 
     private fun loadUpcomingElections() {
@@ -42,7 +41,7 @@ class ElectionsViewModel(
         })
     }
 
-    private fun loadSavedElections() {
+    fun loadSavedElections() {
         viewModelScope.launch {
             _savedElections.value = repository.getAll()
         }

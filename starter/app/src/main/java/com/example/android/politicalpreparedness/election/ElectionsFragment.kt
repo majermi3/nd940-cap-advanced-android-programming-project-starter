@@ -15,6 +15,7 @@ import com.example.android.politicalpreparedness.databinding.FragmentElectionBin
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
 import com.example.android.politicalpreparedness.election.adapter.ElectionListener
 import com.example.android.politicalpreparedness.network.models.Election
+import timber.log.Timber
 
 class ElectionsFragment: Fragment() {
 
@@ -61,6 +62,8 @@ class ElectionsFragment: Fragment() {
         )
     }
 
-    //TODO: Refresh adapters when fragment loads
-
+    override fun onResume() {
+        super.onResume()
+        _viewModel.loadSavedElections()
+    }
 }

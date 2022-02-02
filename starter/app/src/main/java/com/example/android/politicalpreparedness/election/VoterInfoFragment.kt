@@ -1,8 +1,9 @@
 package com.example.android.politicalpreparedness.election
 
-import android.location.Location
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -56,7 +57,7 @@ class VoterInfoFragment : BaseLocationFragment() {
         return binding.root
     }
 
-    override fun setCurrentLocation(currentLocation: Location) {
+    override fun onLocationSet() {
         _viewModel.loadVoterInfo(args.argElectionId, geoCodeLocation(currentLocation))
     }
 

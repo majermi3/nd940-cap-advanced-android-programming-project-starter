@@ -10,6 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/voter_info_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.android.politicalpreparedness.MainActivity">
@@ -56,8 +57,12 @@
             android:id="@+id/state_locations"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_baseline_open_in_browser_24"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
             android:text="@string/voting_locations"
             app:layout_constraintEnd_toEndOf="@+id/state_header"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/state_header" />
 
@@ -67,6 +72,9 @@
             android:id="@+id/state_ballot"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_baseline_open_in_browser_24"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
             android:text="@string/ballot_information"
             app:layout_constraintEnd_toEndOf="@+id/state_locations"
             app:layout_constraintStart_toStartOf="@id/election_date"

@@ -34,18 +34,16 @@ class ElectionsFragment: Fragment() {
         binding.lifecycleOwner = this
         binding.electionsViewModel = _viewModel
 
-        setUpList(_viewModel.upcomingElections, binding.upcomingElectionsList, ElectionListener { election ->
-            navigateToVoterInfo(election)
-        })
-        setUpList(_viewModel.savedElections, binding.savedElectionsList, ElectionListener { election ->
-
-        })
+        setUpList(_viewModel.upcomingElections, binding.upcomingElectionsList)
+        setUpList(_viewModel.savedElections, binding.savedElectionsList)
 
         return binding.root
     }
 
-    private fun setUpList(elections: LiveData<List<Election>>, recyclerView: RecyclerView, clickListener: ElectionListener) {
-        val adapter = ElectionListAdapter(clickListener)
+    private fun setUpList(elections: LiveData<List<Election>>, recyclerView: RecyclerView) {
+        val adapter = ElectionListAdapter(ElectionListener { election ->
+            navigateToVoterInfo(election)
+        })
         recyclerView.adapter = adapter
 
         elections.observe(viewLifecycleOwner, Observer { newElections ->

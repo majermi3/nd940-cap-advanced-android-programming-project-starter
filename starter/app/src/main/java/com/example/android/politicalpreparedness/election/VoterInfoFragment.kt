@@ -4,8 +4,10 @@ import android.location.Location
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.example.android.politicalpreparedness.MyApp
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.base.BaseLocationFragment
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
 
@@ -14,7 +16,10 @@ class VoterInfoFragment : BaseLocationFragment() {
     private val args: VoterInfoFragmentArgs by navArgs()
 
     private val _viewModel by viewModels<VoterInfoViewModel>() {
-        VoterInfoViewModelFactory(requireContext().applicationContext as MyApp)
+        VoterInfoViewModelFactory(
+                requireContext().applicationContext as MyApp,
+                (requireContext().applicationContext as MyApp).electionsRepository
+        )
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -36,6 +41,17 @@ class VoterInfoFragment : BaseLocationFragment() {
         binding.stateBallot.setOnClickListener {
 
         }
+        binding.saveElectionButton.setOnClickListener {
+            _viewModel.saveElection()
+        }
+
+        _viewModel.savedElection.observe(viewLifecycleOwner, Observer { election ->
+            if (election != null) {
+                binding.saveElectionButton.text = getString(R.string.unfollow_election)
+            } else {
+                binding.saveElectionButton.text = getString(R.string.follow_election)
+            }
+        })
 
         return binding.root
     }

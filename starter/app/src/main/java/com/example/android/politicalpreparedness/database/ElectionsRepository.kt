@@ -6,4 +6,16 @@ class ElectionsRepository(private val electionsDao: ElectionDao): DataSource {
     suspend fun getAll(): List<Election> {
         return electionsDao.getAll()
     }
+
+    suspend fun get(electionId: Int): Election? {
+        return electionsDao.get(electionId)
+    }
+
+    suspend fun delete(electionId: Int) {
+        electionsDao.delete(electionId)
+    }
+
+    suspend fun insert(election: Election) {
+        electionsDao.insert(election)
+    }
 }

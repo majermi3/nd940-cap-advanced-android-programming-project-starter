@@ -18,7 +18,7 @@ class RepresentativeViewModel(app: Application): BaseViewModel(app) {
     val representatives: LiveData<List<Representative>>
         get() = _representatives
 
-    fun findRepresentatives(address: String) {
+    fun findRepresentatives(address: String, callback: (() -> Unit)? = null) {
         if (hasInternetConnection()) {
             CivicsApi.retrofitService.getRepresentatives(address).enqueue(object : Callback<RepresentativeResponse> {
                 override fun onResponse(call: Call<RepresentativeResponse>, response: Response<RepresentativeResponse>) {
@@ -26,6 +26,7 @@ class RepresentativeViewModel(app: Application): BaseViewModel(app) {
                         _representatives.value = representativesResponse.offices.flatMap { office ->
                             office.getRepresentatives(representativesResponse.officials)
                         }
+                        callback?.let { it() }
                     }
                 }
 

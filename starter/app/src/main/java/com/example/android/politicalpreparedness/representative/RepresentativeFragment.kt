@@ -43,21 +43,16 @@ class RepresentativeFragment : BaseLocationFragment() {
         })
 
         binding.buttonSearch.setOnClickListener {
-            _viewModel.findRepresentatives(getFormattedAddress())
+            _viewModel.findRepresentatives(getFormattedAddress()) {
+                startAnimation()
+            }
             hideKeyboard()
-            startAnimation()
         }
         binding.buttonLocation.setOnClickListener {
             checkPermissionsAndSetCurrentLocation()
             hideKeyboard()
         }
 
-        if(savedInstanceState?.getBoolean(IS_FORM_SUBMITTED, false) == true) {
-            _viewModel.findRepresentatives(getFormattedAddress())
-            if(savedInstanceState.getBoolean(IS_ANIMATED, false)) {
-                startAnimation()
-            }
-        }
         _viewModel.noInternetAccess.observe(viewLifecycleOwner, Observer { noInternetAccess ->
             if (noInternetAccess) {
                 showSnackBarWithSettingsIntent(
@@ -90,8 +85,9 @@ class RepresentativeFragment : BaseLocationFragment() {
             binding.city.setText(address.city)
             binding.state.setNewValue(address.state)
 
-            _viewModel.findRepresentatives(getFormattedAddress())
-            startAnimation()
+            _viewModel.findRepresentatives(getFormattedAddress()) {
+                startAnimation()
+            }
         }
     }
 
@@ -118,10 +114,25 @@ class RepresentativeFragment : BaseLocationFragment() {
         imm.hideSoftInputFromWindow(view!!.windowToken, 0)
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        val motionLayoutState = savedInstanceState?.getInt(MOTION_LAYOUT_STATE) ?: -1
+        if(savedInstanceState?.getBoolean(IS_FORM_SUBMITTED, false) == true) {
+            _viewModel.findRepresentatives(getFormattedAddress()) {
+                if(motionLayoutState > -1) {
+                    binding.representativeContainer.transitionToState(motionLayoutState)
+                }
+            }
+        } else if (motionLayoutState > -1) {
+            binding.representativeContainer.transitionToState(motionLayoutState)
+        }
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean(IS_FORM_SUBMITTED, _viewModel.representatives.value != null)
-        outState.putBoolean(IS_ANIMATED, binding.representativeContainer.progress == 1f)
+        outState.putInt(MOTION_LAYOUT_STATE, binding.representativeContainer.currentState)
     }
 
     private fun startAnimation() {
@@ -130,6 +141,6 @@ class RepresentativeFragment : BaseLocationFragment() {
 
     companion object {
         const val IS_FORM_SUBMITTED = "IS_FORM_SUBMITTED"
-        const val IS_ANIMATED = "IS_ANIMATED"
+        const val MOTION_LAYOUT_STATE = "MOTION_LAYOUT_STATE"
     }
 }

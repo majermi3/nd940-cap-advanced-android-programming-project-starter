@@ -13,8 +13,8 @@
         android:id="@+id/representative_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:paddingStart="@dimen/medium_padding"
+        android:paddingEnd="@dimen/medium_padding"
         app:layoutDescription="@xml/fragment_representative_scene">
 
         <TextView
@@ -22,7 +22,7 @@
             style="@style/Headline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/medium_margin"
             android:text="@string/representative_search"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +31,7 @@
             android:id="@+id/address_line_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/small_margin"
             android:autofillHints="@string/address_line_1"
             android:hint="@string/address_line_1"
             android:inputType="textPostalAddress"
@@ -96,7 +96,7 @@
             style="@style/ActionButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/small_margin"
             android:text="@string/button_location"
             app:layout_constraintStart_toStartOf="@+id/button_search"
             app:layout_constraintTop_toBottomOf="@id/button_search" />
@@ -106,7 +106,7 @@
             style="@style/Headline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/large_margin"
             android:text="@string/my_representatives"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_location" />
@@ -115,7 +115,7 @@
             android:id="@+id/representative_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/small_margin"
             android:textAlignment="center"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

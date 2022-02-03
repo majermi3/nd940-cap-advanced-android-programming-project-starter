@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
-            android:padding="16dp"
+            android:padding="@dimen/medium_padding"
             android:singleLine="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
             android:id="@+id/election_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/medium_margin"
             android:text="@{voterInfoViewModel.voterInfo.election.electionDay.toString()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,21 +44,19 @@
             android:id="@+id/state_header"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/large_margin"
             android:text="@string/election_information"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/election_date"
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/election_date" />
 
-        <!-- TODO: Add click binding to open web URL -->
-        <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/state_locations"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_baseline_open_in_browser_24"
-            android:drawablePadding="8dp"
+            android:drawablePadding="@dimen/small_padding"
             android:gravity="center_vertical"
             android:text="@string/voting_locations"
             app:layout_constraintEnd_toEndOf="@+id/state_header"
@@ -66,33 +64,29 @@
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/state_header" />
 
-        <!-- TODO: Add click binding to open web URL -->
-        <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/state_ballot"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_baseline_open_in_browser_24"
-            android:drawablePadding="8dp"
+            android:drawablePadding="@dimen/small_padding"
             android:gravity="center_vertical"
             android:text="@string/ballot_information"
             app:layout_constraintEnd_toEndOf="@+id/state_locations"
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/state_locations" />
 
-        <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/state_correspondence_header"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/large_margin"
             android:text="@string/correspondence_address"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/state_ballot"
             app:layout_constraintStart_toStartOf="@+id/state_ballot"
             app:layout_constraintTop_toBottomOf="@id/state_ballot" />
 
-        <!-- TODO: Add data binding -->
         <TextView
             android:id="@+id/address_line1"
             android:layout_width="0dp"
@@ -116,7 +110,7 @@
             android:id="@+id/address_city"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/small_margin"
             android:text="@{voterInfoViewModel.voterInfo.state.get(0).electionAdministrationBody.correspondenceAddress.city}"
             app:layout_constraintEnd_toEndOf="@+id/address_line1"
             app:layout_constraintStart_toEndOf="@+id/address_zip"
@@ -138,9 +132,9 @@
             style="@style/ActionButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginEnd="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
             android:text="@string/follow_election"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

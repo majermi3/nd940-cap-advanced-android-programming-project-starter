@@ -23,8 +23,8 @@
             android:id="@+id/election_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:textSize="@dimen/medium_text"
             android:textStyle="bold"
             android:text="@{election.name}"/>
 
@@ -32,7 +32,7 @@
             android:id="@+id/election_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/small_margin"
             android:text="@{election.electionDay.toString()}" />
 
     </LinearLayout>

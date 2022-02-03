@@ -17,8 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{() -> clickListener.onClick(representative)}"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:paddingTop="@dimen/small_padding"
+        android:paddingBottom="@dimen/small_padding">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/representative_photo_container"
@@ -42,7 +42,7 @@
             android:id="@+id/office_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/small_margin"
             android:text="@{representative.office.name}"
             android:textStyle="bold"
             tools:text="@string/office_name_example"
@@ -54,7 +54,7 @@
             android:id="@+id/representative_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="@dimen/small_margin"
             android:text="@{representative.official.name}"
             tools:text="@string/representative_name_example"
             app:layout_constraintEnd_toStartOf="@+id/www_icon"

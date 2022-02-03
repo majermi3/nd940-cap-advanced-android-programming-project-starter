@@ -46,10 +46,18 @@ class RepresentativeFragment : BaseLocationFragment() {
         binding.buttonSearch.setOnClickListener {
             _viewModel.findRepresentatives(getFormattedAddress())
             hideKeyboard()
+            startAnimation()
         }
         binding.buttonLocation.setOnClickListener {
             checkPermissionsAndSetCurrentLocation()
             hideKeyboard()
+        }
+
+        if(savedInstanceState?.getBoolean(IS_FORM_SUBMITTED, false) == true) {
+            _viewModel.findRepresentatives(getFormattedAddress())
+            if(savedInstanceState.getBoolean(IS_ANIMATED, false)) {
+                startAnimation()
+            }
         }
 
         return binding.root
@@ -71,6 +79,7 @@ class RepresentativeFragment : BaseLocationFragment() {
         binding.state.setNewValue(address.state)
 
         _viewModel.findRepresentatives(getFormattedAddress())
+        startAnimation()
     }
 
     private fun getFormattedAddress(): String {
@@ -97,5 +106,20 @@ class RepresentativeFragment : BaseLocationFragment() {
     private fun hideKeyboard() {
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(IS_FORM_SUBMITTED, _viewModel.representatives.value != null)
+        outState.putBoolean(IS_ANIMATED, binding.representativeContainer.progress == 1f)
+    }
+
+    private fun startAnimation() {
+        binding.representativeContainer.transitionToEnd()
+    }
+
+    companion object {
+        const val IS_FORM_SUBMITTED = "IS_FORM_SUBMITTED"
+        const val IS_ANIMATED = "IS_ANIMATED"
     }
 }

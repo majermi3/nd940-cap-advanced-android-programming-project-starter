@@ -18,24 +18,15 @@
         android:paddingEnd="16dp"
         app:layoutDescription="@xml/fragment_representative_scene">
 
-        <Button
-            android:id="@+id/button_search"
-            style="@style/ActionButton"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/search_title"
+            style="@style/Headline"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/button_search"
-            app:layout_constraintStart_toStartOf="@+id/zip"
-            app:layout_constraintTop_toBottomOf="@id/zip" />
-
-        <Button
-            android:id="@+id/button_location"
-            style="@style/ActionButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/button_location"
-            app:layout_constraintStart_toStartOf="@+id/button_search"
-            app:layout_constraintTop_toBottomOf="@id/button_search" />
+            android:layout_marginTop="16dp"
+            android:text="@string/representative_search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/address_line_1"
@@ -69,6 +60,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/address_line_2" />
 
+        <Spinner
+            android:id="@+id/state"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autofillHints=""
+            android:inputType="textPostalAddress"
+            app:layout_constraintBottom_toBottomOf="@id/city"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/city"
+            app:layout_constraintTop_toTopOf="@id/city" />
+
+        <Button
+            android:id="@+id/button_search"
+            style="@style/ActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_search"
+            app:layout_constraintStart_toStartOf="@+id/zip"
+            app:layout_constraintTop_toBottomOf="@id/zip" />
+
         <EditText
             android:id="@+id/zip"
             android:layout_width="0dp"
@@ -81,26 +92,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/city" />
 
-        <Spinner
-            android:id="@+id/state"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:autofillHints=""
-            android:inputType="textPostalAddress"
-            app:layout_constraintBottom_toBottomOf="@id/city"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/city"
-            app:layout_constraintTop_toTopOf="@id/city" />
-
-        <TextView
-            android:id="@+id/search_title"
-            style="@style/Headline"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/button_location"
+            style="@style/ActionButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/representative_search"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="8dp"
+            android:text="@string/button_location"
+            app:layout_constraintStart_toStartOf="@+id/button_search"
+            app:layout_constraintTop_toBottomOf="@id/button_search" />
 
         <TextView
             android:id="@+id/representative_title"

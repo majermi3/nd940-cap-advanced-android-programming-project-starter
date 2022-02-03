@@ -33,7 +33,8 @@
                 android:layout_width="@dimen/photo_size"
                 android:layout_height="@dimen/photo_size"
                 profileImage="@{representative.official.photoUrl}"
-                tools:srcCompat="@drawable/ic_profile" />
+                tools:srcCompat="@drawable/ic_profile"
+                android:contentDescription="@string/representative_photo" />
 
         </androidx.cardview.widget.CardView>
 
@@ -43,6 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@{representative.office.name}"
+            android:textStyle="bold"
+            tools:text="@string/office_name_example"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/representative_photo_container"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,6 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@{representative.official.name}"
+            tools:text="@string/representative_name_example"
             app:layout_constraintEnd_toStartOf="@+id/www_icon"
             app:layout_constraintStart_toStartOf="@+id/office_name"
             app:layout_constraintTop_toBottomOf="@+id/office_name" />
@@ -62,6 +66,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{representative.official.party}"
+            tools:text="@string/representative_party_example"
             app:layout_constraintEnd_toEndOf="@+id/representative_name"
             app:layout_constraintStart_toStartOf="@+id/representative_name"
             app:layout_constraintTop_toBottomOf="@+id/representative_name" />
@@ -74,7 +79,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/representative_party"
             app:layout_constraintEnd_toEndOf="@+id/office_name"
             app:layout_constraintTop_toBottomOf="@+id/office_name"
-            app:srcCompat="@drawable/ic_twitter" />
+            app:srcCompat="@drawable/ic_twitter"
+            android:contentDescription="@string/twitter_icon" />
 
         <ImageButton
             android:id="@+id/facebook_icon"
@@ -85,7 +91,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/twitter_icon"
             app:layout_constraintEnd_toStartOf="@+id/twitter_icon"
             app:layout_constraintTop_toTopOf="@+id/twitter_icon"
-            app:srcCompat="@drawable/ic_facebook" />
+            app:srcCompat="@drawable/ic_facebook"
+            android:contentDescription="@string/facebook_icon" />
 
         <ImageButton
             android:id="@+id/www_icon"
@@ -96,7 +103,9 @@
             app:layout_constraintBottom_toBottomOf="@+id/facebook_icon"
             app:layout_constraintEnd_toStartOf="@+id/facebook_icon"
             app:layout_constraintTop_toTopOf="@+id/facebook_icon"
-            app:srcCompat="@drawable/ic_www" />
+            app:srcCompat="@drawable/ic_www"
+            android:contentDescription="@string/www_icon" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

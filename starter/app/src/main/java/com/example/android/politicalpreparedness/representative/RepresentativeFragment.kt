@@ -69,6 +69,8 @@ class RepresentativeFragment : BaseLocationFragment() {
         binding.zip.setText(address.zip)
         binding.city.setText(address.city)
         binding.state.setNewValue(address.state)
+
+        _viewModel.findRepresentatives(getFormattedAddress())
     }
 
     private fun getFormattedAddress(): String {

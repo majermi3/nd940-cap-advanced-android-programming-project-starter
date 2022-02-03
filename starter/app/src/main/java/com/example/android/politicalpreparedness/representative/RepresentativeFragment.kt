@@ -17,7 +17,6 @@ import com.example.android.politicalpreparedness.base.BaseLocationFragment
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
 import com.example.android.politicalpreparedness.representative.adapter.setNewValue
-import com.google.android.material.snackbar.Snackbar
 
 class RepresentativeFragment : BaseLocationFragment() {
 
@@ -59,6 +58,18 @@ class RepresentativeFragment : BaseLocationFragment() {
                 startAnimation()
             }
         }
+        _viewModel.noInternetAccess.observe(viewLifecycleOwner, Observer { noInternetAccess ->
+            if (noInternetAccess) {
+                showSnackBarWithSettingsIntent(
+                        binding.representativeContainer,
+                        R.string.no_internet_access,
+                        Intent().apply {
+                            action = Settings.ACTION_WIFI_SETTINGS
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        }
+                )
+            }
+        })
 
         return binding.root
     }
@@ -72,14 +83,16 @@ class RepresentativeFragment : BaseLocationFragment() {
     }
 
     override fun onLocationSet() {
-        val address = geoCodeLocation(currentLocation)
-        binding.addressLine1.setText(address.line1)
-        binding.zip.setText(address.zip)
-        binding.city.setText(address.city)
-        binding.state.setNewValue(address.state)
+        if (_viewModel.hasInternetConnection()) {
+            val address = geoCodeLocation(currentLocation)
+            binding.addressLine1.setText(address.line1)
+            binding.zip.setText(address.zip)
+            binding.city.setText(address.city)
+            binding.state.setNewValue(address.state)
 
-        _viewModel.findRepresentatives(getFormattedAddress())
-        startAnimation()
+            _viewModel.findRepresentatives(getFormattedAddress())
+            startAnimation()
+        }
     }
 
     private fun getFormattedAddress(): String {
@@ -89,18 +102,15 @@ class RepresentativeFragment : BaseLocationFragment() {
     }
 
     override fun showLocationPermissionError() {
-        Snackbar.make(
+        showSnackBarWithSettingsIntent(
                 binding.representativeContainer,
                 R.string.permission_denied_explanation,
-                Snackbar.LENGTH_INDEFINITE
+                Intent().apply {
+                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                }
         )
-                .setAction(R.string.settings) {
-                    startActivity(Intent().apply {
-                        action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                        data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
-                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    })
-                }.show()
     }
 
     private fun hideKeyboard() {

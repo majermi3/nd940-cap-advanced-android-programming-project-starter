@@ -1,10 +1,10 @@
 package com.example.android.politicalpreparedness.election
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.base.BaseViewModel
 import com.example.android.politicalpreparedness.database.ElectionsRepository
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Address
@@ -17,7 +17,7 @@ import retrofit2.Response
 import timber.log.Timber
 
 class VoterInfoViewModel(app: Application,
-                         private val repository: ElectionsRepository) : AndroidViewModel(app) {
+                         private val repository: ElectionsRepository) : BaseViewModel(app) {
 
     private val _voterInfo = MutableLiveData<VoterInfoResponse>()
     val voterInfo: LiveData<VoterInfoResponse>
@@ -28,18 +28,20 @@ class VoterInfoViewModel(app: Application,
         get() = _savedElection
 
     fun loadVoterInfo(electionId: Int, address: Address) {
-        CivicsApi.retrofitService.getVoterInfo(getFormattedAddress(address), electionId).enqueue(object : Callback<VoterInfoResponse> {
-            override fun onResponse(call: Call<VoterInfoResponse>, response: Response<VoterInfoResponse>) {
-                val vi = response.body()
-                _voterInfo.value = vi
-            }
+        if (hasInternetConnection()) {
+            CivicsApi.retrofitService.getVoterInfo(getFormattedAddress(address), electionId).enqueue(object : Callback<VoterInfoResponse> {
+                override fun onResponse(call: Call<VoterInfoResponse>, response: Response<VoterInfoResponse>) {
+                    val vi = response.body()
+                    _voterInfo.value = vi
+                }
 
-            override fun onFailure(call: Call<VoterInfoResponse>, t: Throwable) {
-                Timber.e(t)
+                override fun onFailure(call: Call<VoterInfoResponse>, t: Throwable) {
+                    Timber.e(t)
+                }
+            })
+            viewModelScope.launch {
+                _savedElection.value = repository.get(electionId)
             }
-        })
-        viewModelScope.launch {
-            _savedElection.value = repository.get(electionId)
         }
     }
 

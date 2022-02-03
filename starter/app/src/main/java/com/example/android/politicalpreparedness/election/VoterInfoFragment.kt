@@ -15,7 +15,6 @@ import com.example.android.politicalpreparedness.MyApp
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.base.BaseLocationFragment
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
-import com.google.android.material.snackbar.Snackbar
 
 class VoterInfoFragment : BaseLocationFragment() {
 
@@ -61,6 +60,18 @@ class VoterInfoFragment : BaseLocationFragment() {
                 binding.saveElectionButton.text = getString(R.string.follow_election)
             }
         })
+        _viewModel.noInternetAccess.observe(viewLifecycleOwner, Observer { noInternetAccess ->
+            if (noInternetAccess) {
+                showSnackBarWithSettingsIntent(
+                        binding.voterInfoContainer,
+                        R.string.no_internet_access,
+                        Intent().apply {
+                            action = Settings.ACTION_WIFI_SETTINGS
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        }
+                )
+            }
+        })
 
         return binding.root
     }
@@ -71,21 +82,20 @@ class VoterInfoFragment : BaseLocationFragment() {
     }
 
     override fun onLocationSet() {
-        _viewModel.loadVoterInfo(args.argElectionId, geoCodeLocation(currentLocation))
+        if (_viewModel.hasInternetConnection()) {
+            _viewModel.loadVoterInfo(args.argElectionId, geoCodeLocation(currentLocation))
+        }
     }
 
     override fun showLocationPermissionError() {
-        Snackbar.make(
+        showSnackBarWithSettingsIntent(
                 binding.voterInfoContainer,
                 R.string.permission_denied_explanation,
-                Snackbar.LENGTH_INDEFINITE
+                Intent().apply {
+                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                }
         )
-                .setAction(R.string.settings) {
-                    startActivity(Intent().apply {
-                        action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                        data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
-                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    })
-                }.show()
     }
 }

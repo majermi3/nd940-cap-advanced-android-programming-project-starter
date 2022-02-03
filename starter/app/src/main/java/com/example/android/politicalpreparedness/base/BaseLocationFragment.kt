@@ -9,7 +9,6 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
 import com.example.android.politicalpreparedness.network.models.Address
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -19,7 +18,7 @@ import com.google.android.gms.location.LocationSettingsRequest
 import timber.log.Timber
 import java.util.*
 
-abstract class BaseLocationFragment : Fragment() {
+abstract class BaseLocationFragment : BaseFragment() {
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     protected lateinit var currentLocation: Location

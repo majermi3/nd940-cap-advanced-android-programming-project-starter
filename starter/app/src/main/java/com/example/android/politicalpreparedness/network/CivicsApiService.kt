@@ -43,7 +43,6 @@ interface CivicsApiService {
             @Query("address") address: String,
             @Query("electionId") electionId: Int): Call<VoterInfoResponse>
 
-    //TODO: Add representatives API Call
     @GET("representatives")
     fun getRepresentatives(@Query("address") address: String,
                            @Query("includeOffices") includeOffices: Boolean = true): Call<RepresentativeResponse>

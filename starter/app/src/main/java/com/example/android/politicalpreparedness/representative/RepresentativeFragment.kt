@@ -118,20 +118,13 @@ class RepresentativeFragment : BaseLocationFragment() {
         super.onViewStateRestored(savedInstanceState)
 
         val motionLayoutState = savedInstanceState?.getInt(MOTION_LAYOUT_STATE) ?: -1
-        if(savedInstanceState?.getBoolean(IS_FORM_SUBMITTED, false) == true) {
-            _viewModel.findRepresentatives(getFormattedAddress()) {
-                if(motionLayoutState > -1) {
-                    binding.representativeContainer.transitionToState(motionLayoutState)
-                }
-            }
-        } else if (motionLayoutState > -1) {
+        if (motionLayoutState > -1) {
             binding.representativeContainer.transitionToState(motionLayoutState)
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putBoolean(IS_FORM_SUBMITTED, _viewModel.representatives.value != null)
         outState.putInt(MOTION_LAYOUT_STATE, binding.representativeContainer.currentState)
     }
 
@@ -140,7 +133,6 @@ class RepresentativeFragment : BaseLocationFragment() {
     }
 
     companion object {
-        const val IS_FORM_SUBMITTED = "IS_FORM_SUBMITTED"
         const val MOTION_LAYOUT_STATE = "MOTION_LAYOUT_STATE"
     }
 }
